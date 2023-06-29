@@ -1,0 +1,88 @@
+---
+title: "Hypoxia boxplots"
+author: "Katie O'Brien-Clayton"
+date: "2023-06-28"
+output: html_document
+---
+```{r}
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+## My code vs Ansel's
+
+##library(tidyverse)
+##library(here)
+##library(ggplot2)
+
+
+##ggplot(data = DO2023JUN, aes(x = StationName, y = SWinklerDO)) +
+##      geom_boxplot()
+
+##ggbase <-ggplot(data = DO2023JUN, aes(x = StationName, y = SWinklerDO)) +
+##             geom_boxplot()
+
+##ggbase + geom_boxplot()+ labs(x="Station Name", y="Dissolved Oxygen (mg/L)", title="Surface Dissolved Oxygen Across Long Island Sound", subtitle="WQJUN Cruises (1998-2023)")
+
+##cruiseVariable <- "WQJUN23"
+
+##geom_point(data = subset(test, test$Cruise == "WQJUN23"), aes(x = StationName,
+                                        ##                        y = SWinklerDO),
+##             colour = "red", shape = 17)
+```
+
+
+```{r}
+library(ggplot2)
+
+library(dplyr) #You don't actually need this package for the code below but dplyr is very handy most of the time
+
+library(readxl)
+
+ 
+
+test <- read_excel("C:\\R\\data\\DO2023JUN.xlsx")
+
+ 
+
+ggplot(data = test, aes(x = StationName, y = SWinklerDO))+
+
+  geom_boxplot(fill = "#a3bdd3")+ #Creates a boxplot and assigns a fill color
+  geom_point(data = subset(test, test$Cruise == "WQJUN23"), aes(x = StationName,
+                                                                y = SWinklerDO),
+             colour = "red", shape = 17)+
+
+  labs(x="Station Name", y="Dissolved Oxygen (mg/L)")+
+  
+  
+   ggtitle("Surface Dissolved Oxygen Concentrations Across Long Island Sound
+
+WQJUN Cruises",
+
+          subtitle = "1998-2023")+ #Assigns a title and subtitle to the graphic
+
+  theme_bw() #Various default themes in R, I use this often since it puts up a white background.
+
+     theme(legend.position = "none", #Further customization of theme
+
+        plot.title = element_text(size = 15), # adjust size of plot title
+
+        axis.title = element_text(size = 15), # adjust size of axis title
+
+        strip.background = element_rect(colour="black",
+                                        fill="white"))
+
+
+
+ 
+
+#Saves graphic in a specific location and in a specific format (.png) and size
+ggsave(paste0("C:\\Users\\Obrienclaytonka\\Documents\\SurfaceDOData_1998-2023.png"), height = 7.2, width = 10)
+```
+
